@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import { getClient } from "@/client";
 import { Lesson } from "@/types/payload-types";
+import TonConnectUIProviderWrapper from "@/components/TonConnectUIProvider/TonConnectUIProviderWrapper";
 
 const query = gql`
   query Lessons {
@@ -23,5 +24,9 @@ export default async function Home() {
 
   console.log("data", data.Lessons.docs);
 
-  return <div></div>;
+  return (
+    <div className="mt-[90px]">
+      <TonConnectUIProviderWrapper />
+    </div>
+  );
 }
