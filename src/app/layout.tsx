@@ -29,6 +29,7 @@ export default async function RootLayout({
             roboto.variable,
             "font-primary flex flex-col justify-between min-h-[100dvh] ![background-image:linear-gradient(to_right_top,_#051937,_#262a66,_#5c3590,_#a033b0,_#eb12c2)]"
           )}
+          suppressHydrationWarning={true}
         >
           <Header />
           <main className="flex-[1_0_auto]">{children}</main>
