@@ -20,12 +20,7 @@ const LockedCourseDialog: FC<ILockedCourseDialog> = ({ lessonName, price }) => {
     setOpen(false);
   };
   return (
-    <Dialog open={open}>
-      <DialogTitle>
-        Unlock {lessonName} lesson by providing a deposit.
-      </DialogTitle>
       <TonConnectUIProviderWrapper price={price} />
-    </Dialog>
   );
 };
 
