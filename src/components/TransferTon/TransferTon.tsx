@@ -1,12 +1,17 @@
 "use client";
-import { Address, fromNano, toNano } from "ton";
+import { Address, toNano } from "ton";
 import { useTonConnect } from "@/hooks/useTonConnect";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { Button } from "@mui/material";
 
-export default function TransferTon() {
+interface ITransferTon {
+  price: number;
+}
+
+const TransferTon: FC<ITransferTon> = ({ price }) => {
   const { sender, connected, wallet } = useTonConnect();
 
-  const tonAmount = "0.05";
+  const tonAmount = price?.toString();
   const platformAddress = "EQDeCeHK_T2Fwvf4av5FTNPq3-gPuBPLBt2GtZDq3N8FHcsU";
   const walletInfoUrl = `https://toncenter.com/api/v2/getWalletInformation?address=${wallet}`;
 
@@ -18,27 +23,28 @@ export default function TransferTon() {
   }, []);
 
   return (
-    <div>
+    <div className="p-6 flex flex-col items-center">
+      <h3>Transfer a deposit</h3>
       <div>
-        <h3>Transfer a deposit</h3>
-        <div>
-          <label>
-            <b>Price: {tonAmount} TONs.</b>
-          </label>
-        </div>
-        <button
-          disabled={!connected}
-          style={{ marginTop: 18 }}
-          onClick={async () => {
-            const result = await sender.send({
-              to: Address.parse(platformAddress),
-              value: toNano(tonAmount),
-            });
-          }}
-        >
-          Transfer
-        </button>
+        <label>
+          <b>Price: {tonAmount} TONs.</b>
+        </label>
       </div>
+      <Button
+        className="mt-5"
+        variant="contained"
+        disabled={!connected}
+        onClick={async () => {
+          const result = await sender.send({
+            to: Address.parse(platformAddress),
+            value: toNano(tonAmount),
+          });
+        }}
+      >
+        Transfer
+      </Button>
     </div>
   );
-}
+};
+
+export default TransferTon;

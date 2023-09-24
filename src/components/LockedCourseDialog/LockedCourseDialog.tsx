@@ -1,41 +1,31 @@
-import React from "react";
-import {Dialog, DialogTitle} from "@mui/material";
+"use client";
+import React, { FC } from "react";
+import { Dialog, DialogTitle } from "@mui/material";
 import TonConnectUIProviderWrapper from "@/components/wrappers/TonConnectUIProviderWrapper";
 
-export interface SimpleDialogProps {
-    open: boolean;
-    lessonName: string;
-    onClose: (value: string) => void;
+export interface ILockedCourseDialog {
+  lessonName: string;
+  price: number;
 }
 
-function SimpleDialog(props: SimpleDialogProps) {
-    const { onClose, lessonName, open } = props;
-    return (
-        <Dialog open={open}>
-            <DialogTitle>Unlock {lessonName} lesson by providing a deposit.</DialogTitle>
-            <TonConnectUIProviderWrapper />
-        </Dialog>
-    );
-}
+const LockedCourseDialog: FC<ILockedCourseDialog> = ({ lessonName, price }) => {
+  const [open, setOpen] = React.useState(true);
 
-export default function SimpleDialogDemo() {
-    const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  return (
+    <Dialog open={open}>
+      <DialogTitle>
+        Unlock {lessonName} lesson by providing a deposit.
+      </DialogTitle>
+      <TonConnectUIProviderWrapper price={price} />
+    </Dialog>
+  );
+};
 
-    const handleClose = (value: string) => {
-        setOpen(false);
-    };
-
-    return (
-        <div>
-            <SimpleDialog
-                lessonName="Lesson" // TODO: pass course name
-                open={open}
-                onClose={handleClose}
-            />
-        </div>
-    );
-}
+export default LockedCourseDialog;

@@ -1,3 +1,7 @@
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+export const revalidate = 0;
+
 import { gql } from "@apollo/client";
 import { getClient } from "@/client";
 import { Lesson } from "@/types/payload-types";
@@ -19,9 +23,10 @@ const query = gql`
   }
 `;
 
-interface ILessons {
+export interface ILessons {
   Lessons: {
     docs: Lesson[];
+    totalDocs: number;
   };
 }
 
