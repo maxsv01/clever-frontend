@@ -1,19 +1,20 @@
 "use client";
-import { Address, toNano } from "ton";
-import { useTonConnect } from "@/hooks/useTonConnect";
-import { FC, useEffect, useState } from "react";
-import { Button } from "@mui/material";
+import {Address, toNano} from "ton";
+import {useTonConnect} from "@/hooks/useTonConnect";
+import {FC, useEffect, useState} from "react";
+import {Button} from "@mui/material";
+import {useTonConnectUI} from "@tonconnect/ui-react";
 
 interface ITransferTon {
   price: number;
 }
 
 const TransferTon: FC<ITransferTon> = ({ price }) => {
-  const { sender, connected, wallet } = useTonConnect();
+  const {  connected } = useTonConnect();
+  const [tonConnectUI] = useTonConnectUI();
 
   const tonAmount = price?.toString();
   const platformAddress = "EQDeCeHK_T2Fwvf4av5FTNPq3-gPuBPLBt2GtZDq3N8FHcsU";
-  const walletInfoUrl = `https://toncenter.com/api/v2/getWalletInformation?address=${wallet}`;
 
   const [username, setUsername] = useState<string | null>("");
   useEffect(() => {
@@ -35,10 +36,16 @@ const TransferTon: FC<ITransferTon> = ({ price }) => {
         variant="contained"
         disabled={!connected}
         onClick={async () => {
-          const result = await sender.send({
-            to: Address.parse(platformAddress),
-            value: toNano(tonAmount),
-          });
+          const result = await tonConnectUI.sendTransaction({
+                  messages: [
+                      {
+                          address: Address.parse(platformAddress).toString(),
+                          amount: toNano(tonAmount).toString(),
+                      },
+                  ],
+                  validUntil: Date.now() + 5 * 60 * 1000, // 5 minutes for user to approve
+              });
+            console.log(result);
         }}
       >
         Transfer

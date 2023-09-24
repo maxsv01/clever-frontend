@@ -8,6 +8,7 @@ import { Lesson } from "@/types/payload-types";
 import HelloComponent from "@/components/HelloComponent";
 import LessonsList from "@/components/LessonsList";
 import TonConnectWalletWrapper from "@/components/wrappers/TonConnectWalletWrapper";
+import Quiz from "@/components/Quiz/Quiz";
 
 const query = gql`
   query Lessons {
@@ -33,6 +34,7 @@ export interface ILessons {
 export default async function Home() {
   const { data } = await getClient().query<ILessons>({ query });
 
+  // console.log(data.Lessons.docs);
   return (
     <div className="mt-[90px]">
       <div className="flex justify-center items-center">
