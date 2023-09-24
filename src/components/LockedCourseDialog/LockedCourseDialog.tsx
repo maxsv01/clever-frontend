@@ -1,5 +1,5 @@
 "use client";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { Dialog, DialogTitle } from "@mui/material";
 import TonConnectUIProviderWrapper from "@/components/wrappers/TonConnectUIProviderWrapper";
 
@@ -11,11 +11,12 @@ export interface ILockedCourseDialog {
 const LockedCourseDialog: FC<ILockedCourseDialog> = ({ lessonName, price }) => {
   const [open, setOpen] = React.useState(true);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+  }, [open]);
 
   const handleClose = () => {
+    document.body.style.overflow = "";
     setOpen(false);
   };
   return (
