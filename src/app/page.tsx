@@ -3,6 +3,7 @@ import { getClient } from "@/client";
 import { Lesson } from "@/types/payload-types";
 import HelloComponent from "@/components/HelloComponent";
 import LessonsList from "@/components/LessonsList";
+import TonConnectWalletWrapper from "@/components/wrappers/TonConnectWalletWrapper";
 
 const query = gql`
   query Lessons {
@@ -29,8 +30,10 @@ export default async function Home() {
 
   return (
     <div className="mt-[90px]">
-      {/* <TonConnectUIProviderWrapper /> */}
-      <div className="px-6">
+      <div className="flex justify-center items-center">
+        <TonConnectWalletWrapper />
+      </div>
+      <div className="px-6 mt-6">
         <div className="mx-auto max-w-screen-lg">
           <section>
             <HelloComponent />
