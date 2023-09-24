@@ -1,7 +1,6 @@
 import { gql } from "@apollo/client";
 import { getClient } from "@/client";
 import { Lesson } from "@/types/payload-types";
-import TonConnectUIProviderWrapper from "@/components/wrappers/TonConnectUIProviderWrapper";
 import TonConnectWalletWrapper from "@/components/wrappers/TonConnectWalletWrapper";
 
 const query = gql`
@@ -22,11 +21,15 @@ interface ILessons {
 
 export default async function Home() {
   const { data } = await getClient().query<ILessons>({ query });
-// await getClient().mutate({mutation:})
+
   console.log("data", data.Lessons.docs);
 
   return (
     <div className="mt-[90px]">
+      {/* <TonConnectUIProviderWrapper /> */}
+      <div className="px-6">
+        <div className="mx-auto max-w-screen-lg"></div>
+      </div>
       <TonConnectWalletWrapper />
     </div>
   );
